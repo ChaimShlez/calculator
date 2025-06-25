@@ -19,3 +19,7 @@ class Rectangle(Calc):
 
     def __str__(self):
         return f"Rectangle with width {self._width} and height {self._height}"
+
+
+    def __repr__(self):
+        return self.__str__()

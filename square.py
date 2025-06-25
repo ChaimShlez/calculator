@@ -20,4 +20,6 @@ class Square(Rectangle):
     def __str__(self):
         return f"Square with side length {self._width}"
 
+    def __repr__(self):
+        return self.__str__()
 
