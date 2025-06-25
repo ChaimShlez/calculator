@@ -9,6 +9,9 @@ from triangle import Triangle
 
 
 class UI:
+
+    def __init__(self):
+        self.shapes=[]
     def menu(self):
         isExit=True
         while  isExit:
@@ -30,15 +33,15 @@ class UI:
 
                 match choice:
                     case 1:
-                        self.calc_circle()
+                        self.createOb(Circle)
                     case 2:
-                        self.calc_square()
+                        self.createOb(Square)
                     case 3:
-                        self.calc_rectangle()
+                        self.createOb(Rectangle)
                     case 4:
-                        self.calc_triangle()
+                        self.createOb(Triangle)
                     case 5:
-                        self.calc_hexagon()
+                        self.createOb(Hexagon)
                     case 6:
                         print("good bay")
                         isExit=False
@@ -47,65 +50,27 @@ class UI:
             except ValueError:
                 print("Please enter a valid number.")
 
-    def calc_circle(self):
 
-        try:
-            radius = float(input("Enter radius: "))
-            self.validate(radius)
-            self.createOb(Circle, radius)
-        except ValueError as e:
-            print(f"error - {e}")
+    def createOb(self, shape):
+        shape_config = {
+            Circle: ["radius"],
+            Square: ["side"],
+            Rectangle: ["width", "height"],
+            Triangle: ["base", "height"],
+            Hexagon: ["side"]
+        }
 
-    def calc_square(self):
+        param_names = shape_config.get(shape)
 
-        try:
-            side = float(input("Enter side length: "))
-            self.validate(side)
-            self.createOb(Square, side)
-        except ValueError as e:
-            print(f"error -{e}")
+        params = []
+        for name in param_names:
+            value = float(input(f"Enter {name}: "))
+            self.validate(value)
+            params.append(value)
 
+        shape = shape(*params)
 
-    def calc_rectangle(self):
-
-        try:
-            width = float(input("Enter width: "))
-            height = float(input("Enter height: "))
-            self.validate(width)
-            self.validate(height)
-            self.createOb(Rectangle, width, height)
-        except ValueError as e:
-            print(f"error -{e}")
-
-
-    def calc_triangle(self):
-
-        try:
-            base = float(input("Enter base: "))
-            height = float(input("Enter height: "))
-            self.validate(base)
-            self.validate(height)
-            self.createOb(Triangle, base, height)
-        except ValueError as e:
-            print(f"error -{e}")
-
-
-    def calc_hexagon(self):
-        try:
-            side = float(input("Enter side length: "))
-            self.validate(side)
-            self.createOb(Hexagon, side)
-        except ValueError as e:
-            print(f"error{e}")
-
-
-
-
-
-
-
-    def createOb(self, shape_class, *args):
-        shape = shape_class(*args)
+        self.shapes.append(shape)
         print(shape)
         print(f"Area: {shape.get_area()}")
         print(f"Perimeter: {shape.get_perimeter()}")
@@ -114,5 +79,4 @@ class UI:
     def validate(self,num):
         if num <=0:
             raise ValueError(f"num invalid -{num}")
-
 

@@ -18,3 +18,5 @@ class Circle(Calc):
     def __str__(self):
         return f"Circle with radius {self._length}"
 
+    def __repr__(self):
+        return self.__str__()

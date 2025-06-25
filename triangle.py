@@ -23,6 +23,9 @@ class Triangle(Rectangle):
     def __str__(self):
      return f"Right Triangle with base {self._width} and height {self._height}"
 
+    def __repr__(self):
+        return self.__str__()
+
 
 
 
