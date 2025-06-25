@@ -43,7 +43,7 @@ class UI:
                     case 5:
                         self.createOb(Hexagon)
                     case 6:
-                        print("good bay")
+                        print("goodbye")
                         isExit=False
 
 
